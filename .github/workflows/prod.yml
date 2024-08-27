@@ -12,6 +12,7 @@ jobs:
   push_to_container_registry:
     name: Push Docker image to multiple registries
     runs-on: ubuntu-latest
+    environment: production
     permissions:
       packages: write
       contents: read
@@ -40,5 +41,5 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
-            NEXT_PUBLIC_APP_NAME="My App from client environment"
-            APP_NAME="My App from server environment"
+            NEXT_PUBLIC_APP_NAME=${{ vars.NEXT_PUBLIC_APP_NAME }}
+            APP_NAME=${{ vars.APP_NAME }}
